@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Winky+Sans&family=Noto+Sans+Arabic&display=swap');
 
-
-
 .hero {
     font-family: "Winky Sans", "Noto Sans Arabic", sans-serif;
     position: relative;
@@ -26,6 +24,9 @@
     height: 70vh;
     object-fit: cover;
     z-index: -1;
+  }
+  .hero h2 {
+    color: #0d5003;
   }
   
   /* Navbar */
@@ -58,15 +59,15 @@
   }
   
   .nav-links a {
-    color: white;
+    color:  #0d5003;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
   
   .nav-links a:hover {
-    font-size: 1.2rem;
+    font-size: 1.55rem;
     transition: 0.5s;
-    color: blueviolet;
+    color: white;
     
   }
   
@@ -96,7 +97,7 @@
       flex-direction: column;
       background: rgba(0, 0, 0, 0.7);
       position: absolute;
-      top: 60px;
+      top: 85%;
       left: 0;
       width: 100%;
       text-align: center;
@@ -107,9 +108,6 @@
       display: flex;
     }
   
-    .nav-links li {
-      padding: 10px 0;
-    }
   }
   
   /* Hero Content */
@@ -133,7 +131,7 @@
     margin-top: 15px;
     padding: 12px 25px;
     font-size: 1.2rem;
-    background-color: #007bff;
+    background-color:  #0d5003;
     border: none;
     color: white;
     cursor: pointer;
@@ -151,7 +149,7 @@
     }
   
     .hero p {
-      font-size: 1.2rem;
+      font-size: 0.8rem;
     }
   
     .hero button {

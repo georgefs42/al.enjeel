@@ -7,19 +7,18 @@
     flex-direction: column;
     gap: 15px;
     z-index: 3;
-    background-color: rgba(244, 62, 62, 0.228);
     padding: 15px;
     border-radius: 8px 0 0 8px;
   }
   
   .social-sidebar a {
-    color: white;
+    color: #0d5003;
     font-size: 2rem;
     transition: color 0.3s ease;
   }
   
   .social-sidebar a:hover {
-    color: #007bff;
+    color: white;
   }
   
   /* Responsive adjustments */
