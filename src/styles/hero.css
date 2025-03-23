@@ -13,10 +13,10 @@
     text-align: center;
     color: white;
     margin-bottom: -15%;
-  }
-  
-  /* Video Background */
-  .hero-video {
+}
+
+/* Video Background */
+.hero-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -24,136 +24,127 @@
     height: 70vh;
     object-fit: cover;
     z-index: -1;
-  }
-  .hero h2 {
+    border-radius: 25px;
+}
+
+.hero h2 {
     color: #0d5003;
-  }
-  
-  /* Navbar */
-  .navbar {
+}
+
+/* Navbar */
+.navbar {
     position: absolute;
     top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
-    background: rgba(0, 0, 0, 0.3); /* Slight transparency */
+    padding: 15px 5%;
     z-index: 2;
-  }
-  
-  /* Logo */
-  .logo img {
-    padding-left: 50%;
-    height: 90px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Logo */
+.logo img {
+    height: 70px;
     width: auto;
-    padding-top: 10%;
-  }
-  
-  /* Navigation Links */
-  .nav-links {
+    padding-top: 10px;
+}
+
+/* Navigation Links */
+.nav-links {
     list-style: none;
     display: flex;
-    gap: 15px;
+    gap: 20px;
     padding-right: 5%;
-  }
-  
-  .nav-links a {
-    color:  #0d5003;
+}
+
+.nav-links a {
+    color: #0d5003;
     text-decoration: none;
-    font-size: 1.5rem;
-  }
-  
-  .nav-links a:hover {
-    font-size: 1.55rem;
-    transition: 0.5s;
+    font-size: 1.3rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover {
     color: white;
-    
-  }
-  
-  /* Menu Icon (☰ and ✖) */
-  .menu-icon {
+    transform: scale(1.05);
+}
+
+/* Menu Icon for Mobile */
+.menu-icon {
     display: none;
     font-size: 2rem;
     cursor: pointer;
     color: white;
-  }
-  
-  /* Responsive Menu for Tablet and Phone */
-  @media (max-width: 768px) {
-    .hero{        
-    margin-bottom: -60%;
+}
+
+/* Responsive Menu for Small Screens */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+        padding-right: 10%;
+        z-index: 3;
     }
 
-    .menu-icon {
-      display: block;
-      position: relative;
-      z-index: 2;
-      padding-right: 10%;
-    }
-  
     .nav-links {
-      display: none;
-      flex-direction: column;
-      background: rgba(0, 0, 0, 0.7);
-      position: absolute;
-      top: 85%;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      padding: 15px 0;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 15px 0;
+        text-align: center;
     }
-  
-    .nav-links.open {
-      display: flex;
+
+    .nav-links.active {
+        display: flex;
     }
-  
-  }
-  
-  /* Hero Content */
-  .hero-content {
+
+    .nav-links li {
+        padding: 10px 0;
+    }
+
+    .nav-links a {
+        color: white;
+        font-size: 1.2rem;
+    }
+}
+
+/* Login Popup */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.login-container {
+    background: white;
+    padding: 25px;
+    border: 2px solid #0d5003;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    text-align: center;
     position: relative;
-    z-index: 1;
-    max-width: 800px;
-    padding: 20px;
-  }
-  
-  .hero h2 {
-    font-size: 3rem;
-  }
-  
-  .hero p {
-    margin-top: 10px;
-    font-size: 1.5rem;
-  }
-  
-  .hero button {
-    margin-top: 15px;
-    padding: 12px 25px;
-    font-size: 1.2rem;
-    background-color:  #0d5003;
+}
+
+.close-button {
+    position: absolute;
+    top: 8px;
+    left: 90px;
+    background: transparent;
     border: none;
-    color: white;
+    font-size: 20px;
     cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .hero button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .hero h2 {
-      font-size: 2rem;
-    }
-  
-    .hero p {
-      font-size: 0.8rem;
-    }
-  
-    .hero button {
-      font-size: 1rem;
-    }
-  }
-  
+    color: #0d5003;
+}

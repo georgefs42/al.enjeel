@@ -19,6 +19,8 @@
   
   .social-sidebar a:hover {
     color: white;
+    font-size: 2.1rem;
+    transition: 2s;
   }
   
   /* Responsive adjustments */
