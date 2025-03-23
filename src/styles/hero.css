@@ -24,13 +24,26 @@
     height: 70vh;
     object-fit: cover;
     z-index: -1;
-    border-radius: 25px;
+    border-radius: 25px 25px 0 0;
 }
 
 .hero h2 {
     color: #0d5003;
+    font-size: 4em;
+}
+.hero h2:hover {
+  font-size: 4.1em;
+  transition: 0.3s;
 }
 
+.hero p {
+  margin-top: -10%;
+  font-size: 1.45em;
+}
+.hero p:hover {
+  font-size: 1.48em;
+  transition: 0.3s;
+}
 /* Navbar */
 .navbar {
     position: absolute;
@@ -41,14 +54,19 @@
     align-items: center;
     padding: 15px 5%;
     z-index: 2;
-    background: rgba(0, 0, 0, 0.3);
 }
 
 /* Logo */
 .logo img {
-    height: 70px;
+    height: 100px;
     width: auto;
     padding-top: 10px;
+    padding-left: 30px;
+}
+
+.logo img:hover {
+  height: 115px;
+  transition: 0.3s;
 }
 
 /* Navigation Links */
@@ -62,7 +80,7 @@
 .nav-links a {
     color: #0d5003;
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -94,7 +112,7 @@
         top: 60px;
         left: 0;
         width: 100%;
-        background: rgba(0, 0, 0, 0.9);
+        background: #0d500365;
         padding: 15px 0;
         text-align: center;
     }
@@ -147,4 +165,22 @@
     font-size: 20px;
     cursor: pointer;
     color: #0d5003;
+}
+
+
+.hero h2 {
+  font-size: 2.5em;
+}
+.hero h2:hover {
+font-size: 2.6em;
+transition: 0.3s;
+}
+
+.hero p {
+margin-top: -10%;
+font-size: 0.9em;
+}
+.hero p:hover {
+font-size: 1em;
+transition: 0.3s;
 }

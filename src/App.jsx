@@ -3,13 +3,12 @@ import Sidebar from './components/Sidebar';
 import Hero from './components/Hero';
 import Body from './components/Body';
 import Footer from './components/Footer';
-import VideoAdmin from './components/VideoAdmin';
-import VideoList from './components/VideoList';
 import supabase from './supabase';
 
 function App() {
   const [videos, setVideos] = useState([]); // Stores all videos
   const [filteredVideos, setFilteredVideos] = useState([]); // Stores search results
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
   // Fetch videos from Supabase
   useEffect(() => {
@@ -27,8 +26,8 @@ function App() {
   }, []);
 
   // Handle search by description
-  const handleSearch = async (query) => {
-    if (!query) {
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) {
       setFilteredVideos(videos); // If no search query, show all videos
       return;
     }
@@ -36,7 +35,7 @@ function App() {
     const { data, error } = await supabase
       .from('videos')
       .select('*')
-      .ilike('description', `%${query}%`); // Search in the description
+      .ilike('description', `%${searchQuery}%`); // Search by description
 
     if (error) {
       console.error('Error fetching videos:', error);
@@ -48,8 +47,7 @@ function App() {
   return (
     <div>
       <Sidebar />
-      <Hero setVideos={setFilteredVideos} /> {/* Pass search handler */}
-      <VideoList videos={filteredVideos} /> {/* Display search results */}
+      <Hero />
       <Body />
       <Footer />
     </div>

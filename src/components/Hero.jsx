@@ -4,28 +4,21 @@ import "../styles/hero.css";
 import logo from "/images/logo.png";
 import Login from "../components/Login"; // Import Login component
 import VideoAdmin from "../components/VideoAdmin"; // Import VideoAdmin component
+import VideoList from "../components/VideoList"; // Import VideoList component
+import SearchContent from "../components/SearchContent"; // Import the new SearchContent component
 
-const Hero = ({ setVideos }) => {
-  const [searchQuery, setSearchQuery] = useState("");
+const Hero = () => {
   const [isAdmin, setIsAdmin] = useState(false); // Track admin login state
   const [showLogin, setShowLogin] = useState(false); // Controls login form visibility
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Controls the state of the menu
+  const [searchResults, setSearchResults] = useState([]); // State for storing search results
 
-  const handleSearch = async () => {
-    if (!searchQuery.trim()) return;
-
-    const { data, error } = await supabase
-      .from("videos")
-      .select("*")
-      .ilike("description", `%${searchQuery}%`); // Search by description
-
-    if (error) {
-      console.error("Error fetching videos:", error);
-    } else {
-      setVideos(data); // Update the VideoList component
-    }
+  // Toggle menu visibility (hamburger menu for small screens)
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle the menu visibility
   };
 
+  // Handle admin login/logout
   const handleAdminClick = () => {
     if (isAdmin) {
       setIsAdmin(false); // Logout admin
@@ -34,12 +27,9 @@ const Hero = ({ setVideos }) => {
     }
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen); // Toggle the menu visibility
-  };
-
+  // If admin is logged in, show the admin panel
   if (isAdmin) {
-    return <VideoAdmin onLogout={() => setIsAdmin(false)} />; // Redirect to VideoAdmin when logged in
+    return <VideoAdmin onLogout={() => setIsAdmin(false)} />;
   }
 
   return (
@@ -50,8 +40,11 @@ const Hero = ({ setVideos }) => {
       </video>
 
       <nav className="navbar">
+        {/* Make the logo a clickable link */}
         <div className="logo">
-          <img src={logo} alt="Logo" />
+          <a href="#">  {/* This is the clickable link */}
+            <img src={logo} alt="Logo" />
+          </a>
         </div>
 
         {/* Menu Icon (☰ or ✖) */}
@@ -74,7 +67,9 @@ const Hero = ({ setVideos }) => {
 
       {showLogin && !isAdmin && (
         <div className="login-container">
-          <button className="close-button" onClick={() => setShowLogin(false)}>✖</button>
+          <button className="close-button" onClick={() => setShowLogin(false)}>
+            ✖
+          </button>
           <Login onLogin={() => { setIsAdmin(true); setShowLogin(false); }} />
         </div>
       )}
@@ -82,18 +77,8 @@ const Hero = ({ setVideos }) => {
       <div className="hero-content">
         <h2>أهلاً بك في موقع الإنجيل</h2>
         <p>موقع محتواه يهدف إلى نشر كلمة الرب حتى تصل إلى أقاصي الأرض</p>
-
-        {/* Search Bar */}
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="ابحث عن فيديو..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button onClick={handleSearch}>بحث</button>
-        </div>
       </div>
+
     </section>
   );
 };
