@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Marhey:wght@300..700&family=Rakkas&display=swap');
+
+/* General reset for the navbar */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10; /* Make sure the navbar is above other content */
+    padding: 10px 5%;
+    font-family: 'Marhey';
+        direction: rtl; /* Right to left direction */
+}
+
+/* Logo */
+.logo img {
+    height: 80px; /* Adjust logo height */
+    width: auto;
+    padding-top: 10px;
+    padding-right: 120px;
+    transition: height 0.3s ease;
+}
+
+.logo img:hover {
+  height: 90px; /* Slightly increase logo size on hover */
+  transition: 0.3s;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding-left: 10%; /* Adjust for RTL */
+    margin: 0;
+}
+
+.nav-links a {
+    color: #0d5003;
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Menu Icon for Mobile */
+.menu-icon {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+}
+
+/* Responsive Menu for Small Screens */
+@media (max-width: 930px) {
+    .menu-icon {
+        display: block;
+        z-index: 3;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px; /* Adjusted for the navbar's fixed position */
+        right: 130px; /* Adjusted for RTL */
+        width: 75%;
+        background: rgba(13, 80, 3, 0.9);
+        padding: 15px 0;
+        text-align: center;
+        border-radius: 25px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 10px 0;
+    }
+
+    .nav-links a {
+        color: white;
+        font-size: 1.5rem;
+    }
+}
+
+/* Login Popup */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.login-container {
+    background: white;
+    padding: 25px;
+    border: 2px solid #0d5003;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    text-align: center;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 8px;
+    right: 90px; /* Adjust for RTL */
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #0d5003;
+}
+
+/* Hero Section */
+.hero h2 {
+  font-size: 2.5em;
+}
+
+.hero h2:hover {
+  font-size: 2.6em;
+  transition: 0.3s;
+}
+
+.hero p {
+  font-size: 0.9em;
+}
+
+.hero p:hover {
+  font-size: 1em;
+  transition: 0.3s;
+}
+
+
+@media (max-width: 600px) {
+    .nav-links {
+right: 80px; }
+
+.logo img {
+    padding-right: 30px;
+    
+}
+}
