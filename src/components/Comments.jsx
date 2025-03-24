@@ -147,7 +147,7 @@ const Comments = ({ isAdmin }) => {
       </ul>
 
       <div className="visitor-count" style={{ textAlign: 'center', marginTop: '20px' }}>
-        <p>Number of visitors: {visitorCount}</p>
+        <p>عدد زوار الصفحة: {visitorCount}</p>
       </div>
     </div>
   );
