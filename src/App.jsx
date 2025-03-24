@@ -10,6 +10,7 @@ import Podcast from './components/Podcast';
 import Partner from './components/Partner';
 import Videos from './pages/Videos';
 import Login from './components/Login';
+import Comments from './components/Comments';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -38,47 +39,21 @@ function App() {
     <Router>
       <div>
         <Sidebar />
-
-        {/* Always render Navbar on all pages */}
         <Navbar isAdmin={isAdmin} handleAdminClick={() => setShowLogin(true)} onLogout={handleLogout} />
-
-        {/* Routes for different pages */}
         <Routes>
-          {/* Home page */}
           <Route path="/" element={
             <>
               <Hero />
               <Body />
-              <Footer /> {/* Add Footer here for the homepage */}
+              <Comments isAdmin={isAdmin} />
+              <Footer />
             </>
           } />
-
-          {/* Other routes */}
-          <Route path="/videos" element={
-            <>
-              <Videos />
-              <Footer /> {/* Footer for the /videos page */}
-            </>
-          } />
-          
-          <Route path="/podcast" element={
-            <>
-              <Podcast />
-              <Footer /> {/* Footer for the /podcast page */}
-            </>
-          } />
-          
-          <Route path="/partner" element={
-            <>
-              <Partner />
-              <Footer /> {/* Footer for the /partner page */}
-            </>
-          } />
-          
+          <Route path="/videos" element={<><Videos /><Footer /></>} />
+          <Route path="/podcast" element={<><Podcast /><Footer /></>} />
+          <Route path="/partner" element={<><Partner /><Footer /></>} />
           <Route path="/admin" element={isAdmin ? <VideoAdmin onLogout={handleLogout} /> : <Hero />} />
         </Routes>
-
-        {/* Login Popup */}
         {showLogin && <Login onLogin={handleLogin} onClose={() => setShowLogin(false)} />}
       </div>
     </Router>

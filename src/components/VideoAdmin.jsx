@@ -7,6 +7,8 @@ const VideoAdmin = ({ onLogout }) => {
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
   const [videos, setVideos] = useState([]);
+  const [comments, setComments] = useState({}); // Store comments for each video by video id
+  const [allComments, setAllComments] = useState([]); // Store all comments here
   const [message, setMessage] = useState('');
   const [editId, setEditId] = useState(null); // Track if editing an existing video
 
@@ -19,10 +21,65 @@ const VideoAdmin = ({ onLogout }) => {
         setMessage('Error fetching videos.');
       } else {
         setVideos(data);
+        // Fetch comments for each video after loading videos
+        data.forEach((video) => fetchComments(video.id));
       }
     } catch (err) {
       console.error('An error occurred:', err);
       setMessage('An error occurred while fetching videos.');
+    }
+  };
+
+  // Fetch comments for a specific video (you can keep this function for specific video comments)
+  const fetchComments = async (videoId) => {
+    try {
+      const { data, error } = await supabase
+        .from('comments')
+        .select('*')
+        .eq('video_id', videoId);
+
+      if (error) {
+        console.error('Error fetching comments:', error);
+      } else {
+        setComments((prevComments) => ({
+          ...prevComments,
+          [videoId]: data,
+        }));
+      }
+    } catch (err) {
+      console.error('An error occurred while fetching comments:', err);
+    }
+  };
+
+  // Fetch all comments from Supabase (this is where we get all comments)
+  const fetchAllComments = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('comments')
+        .select('*')
+        .order('created_at', { ascending: false }); // Optionally order comments by creation time
+
+      if (error) {
+        console.error('Error fetching all comments:', error);
+      } else {
+        setAllComments(data); // Set all comments here
+      }
+    } catch (err) {
+      console.error('An error occurred while fetching all comments:', err);
+    }
+  };
+
+  // Handle delete comment for all comments
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const { error } = await supabase.from('comments').delete().eq('id', commentId);
+      if (error) throw error;
+      // Refetch all comments after deletion
+      fetchAllComments(); 
+      setMessage('Comment deleted successfully!');
+    } catch (err) {
+      console.error('Error deleting comment:', err);
+      setMessage('An error occurred while deleting the comment.');
     }
   };
 
@@ -120,6 +177,7 @@ const VideoAdmin = ({ onLogout }) => {
 
   useEffect(() => {
     fetchVideos();
+    fetchAllComments(); // Fetch all comments when the component mounts
   }, []);
 
   return (
@@ -176,6 +234,41 @@ const VideoAdmin = ({ onLogout }) => {
                 <button className="edit-btn" onClick={() => handleEditVideo(video)}>Edit</button>
                 <button className="delete-btn" onClick={() => handleDeleteVideo(video.id)}>Delete</button>
               </div>
+
+              {/* Display Comments for the Video */}
+              {comments[video.id] && comments[video.id].length > 0 && (
+                <div className="comments-section">
+                  <h5>Comments</h5>
+                  <ul>
+                    {comments[video.id].map((comment) => (
+                      <li key={comment.id}>
+                        <p>{comment.content}</p>
+                        <button onClick={() => handleDeleteComment(comment.id)}>
+                          Delete Comment
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))
+        )}
+      </ul>
+
+      {/* Show all comments */}
+      <h2>All Comments</h2>
+      <ul className="all-comments-list">
+        {allComments.length === 0 ? (
+          <li>No comments available</li>
+        ) : (
+          allComments.map((comment) => (
+            <li key={comment.id}>
+              <p>{comment.comment_text}</p>
+              <span>{new Date(comment.created_at).toLocaleString()}</span>
+              {/* Admin delete functionality */}
+              <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+              {comment.is_deleted && <span>(Deleted)</span>}
             </li>
           ))
         )}
