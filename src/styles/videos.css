@@ -1,55 +1,108 @@
-/* src/styles/videos.css */
+@import url('https://fonts.googleapis.com/css2?family=Marhey:wght@300..700&family=Rakkas&display=swap');
+
+
+/* Basic styles */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.videos-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .hero {
-    background-image: url('/images/video-hero.jpg'); /* Add your background image */
-    background-size: cover;
-    background-position: center;
-    height: 400px; /* Adjust as per your needs */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-  }
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.videos-content h2 {
+  margin-top: 10%;
+  font-size: 36px;
+  color: #0d5003;
+  font-family: 'Marhey';
+}
+
+.search-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.videos-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.video-item {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.video-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
   
-  .hero-content h2 {
-    font-size: 2.5rem;
-    margin: 0;
-  }
-  
-  .hero-content p {
-    font-size: 1.25rem;
-  }
-  
-  .videos-section {
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
-  
+}
+
+.video-item p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Video player size to mimic TikTok size */
+.video-player {
+  width: 100%;
+  height: 200px;  /* Height to mimic TikTok-like card */
+  margin-bottom: 15px;
+}
+
+.video-player iframe, .video-player video {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .video-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-around;
+    grid-template-columns: repeat(2, 1fr);  /* 2 in a row on small screens */
   }
-  
-  .video-item {
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
+}
+
+
+
+@media (max-width: 480px) {
+  .video-gallery {
+    grid-template-columns: 1fr;  /* 1 in a row on phone screens */
   }
-  
-  .video-item h3 {
-    font-size: 1.25rem;
-    margin: 10px 0;
+  .videos-page  {
+    margin-top: 15%;
   }
-  
-  .video-item video,
-  .video-item iframe {
-    max-width: 100%;
-    border-radius: 8px;
+
+}
+
+@media (max-width: 360px) {
+  .search-bar {
+    width: 80%;  /* Make search bar responsive */
   }
-  
+}

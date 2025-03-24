@@ -1,40 +1,43 @@
-// src/pages/Videos.jsx
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar'; // Import Navbar component
-import supabase from '../supabase'; // Import Supabase client
-import '../styles/videos.css'; // Custom styles for the Videos page
+import supabase from '../supabase'; 
+import '../styles/videos.css'; 
 
 const Videos = () => {
-  const [videos, setVideos] = useState([]); // State to store the videos
-  const [loading, setLoading] = useState(true); // Loading state for async data fetching
-  const [error, setError] = useState(null); // Error handling state
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Fetch videos data from Supabase when the component mounts
   useEffect(() => {
     const fetchVideos = async () => {
-      setLoading(true);  // Start loading
+      setLoading(true);
       try {
-        const { data, error } = await supabase.from('videos').select('*'); // Query the 'videos' table
+        const { data, error } = await supabase.from('videos').select('*');
         if (error) throw error;
-        setVideos(data);  // Set the data if no error
+        setVideos(data);
       } catch (err) {
-        setError(err.message);  // Set the error message if an error occurs
+        setError(err.message);
       } finally {
-        setLoading(false);  // Stop loading
+        setLoading(false);
       }
     };
 
     fetchVideos();
   }, []);
 
-  // Function to render the video (either YouTube, TikTok, or MP4)
+  const filteredVideos = videos.filter((video) => {
+    return (
+      video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      video.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   const renderVideo = (url) => {
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      // Embed YouTube video
       return (
         <iframe
-          width="300"
-          height="200"
+          width="100%"
+          height="100%"
           src={`https://www.youtube.com/embed/${getYouTubeVideoId(url)}`}
           title="YouTube video player"
           frameBorder="0"
@@ -43,11 +46,10 @@ const Videos = () => {
         ></iframe>
       );
     } else if (url.includes('tiktok.com')) {
-      // Embed TikTok video
       return (
         <iframe
-          width="300"
-          height="200"
+          width="100%"
+          height="100%"
           src={`https://www.tiktok.com/embed/${getTikTokVideoId(url)}`}
           title="TikTok video player"
           frameBorder="0"
@@ -55,9 +57,8 @@ const Videos = () => {
         ></iframe>
       );
     } else {
-      // Default case for other video types (direct MP4, for example)
       return (
-        <video width="300" controls>
+        <video width="100%" controls>
           <source src={url} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -65,14 +66,12 @@ const Videos = () => {
     }
   };
 
-  // Extract the YouTube video ID from the URL
   const getYouTubeVideoId = (url) => {
     const regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S+\/?\S*?\/))([^&?=\/\n]*)/;
     const match = url.match(regex);
     return match && match[1];
   };
 
-  // Extract the TikTok video ID from the URL
   const getTikTokVideoId = (url) => {
     const regex = /(?:https?:\/\/(?:www\.)?tiktok\.com\/(?:@[^\/]+\/video\/))(\d+)/;
     const match = url.match(regex);
@@ -81,26 +80,37 @@ const Videos = () => {
 
   return (
     <div className="videos-page">
-      <Navbar isAdmin={false} handleAdminClick={() => {}} isMenuOpen={false} toggleMenu={() => {}} />
+      {/* Navbar removed */}
 
-      <section className="hero">
-        <div className="hero-content">
-          <h2>Video Gallery</h2>
-          <p>Browse through a collection of amazing videos!</p>
+      <section className="videos">
+        <div className="videos-content">
+          <h2>معرض الفيديوهات</h2>
         </div>
+      </section>
+
+      <section className="search-section">
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="...ابحث عن فيديو"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </section>
 
       <section className="videos-section">
         {loading && <p>Loading videos...</p>}
         {error && <p style={{ color: 'red' }}>Error: {error}</p>}
         <div className="video-gallery">
-          {videos.length === 0 ? (
-            <p>No videos available</p>
+          {filteredVideos.length === 0 ? (
+            <p>No videos found</p>
           ) : (
-            videos.map((video) => (
+            filteredVideos.map((video) => (
               <div className="video-item" key={video.id}>
                 <h3>{video.title}</h3>
-                {renderVideo(video.url)} {/* Render video dynamically */}
+                <div className="video-player">
+                  {renderVideo(video.url)}
+                </div>
                 <p>{video.description}</p>
               </div>
             ))

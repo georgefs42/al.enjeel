@@ -81,6 +81,43 @@ const VideoAdmin = ({ onLogout }) => {
     setEditId(video.id);
   };
 
+  // Function to render videos based on the URL (YouTube, TikTok, or local)
+  const renderVideoPlayer = (url) => {
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+      const videoId = url.match(/(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S+\/?\S*?\/))([^&?=\/\n]*)/);
+      return (
+        <iframe
+          width="320"
+          height="240"
+          src={`https://www.youtube.com/embed/${videoId ? videoId[1] : ''}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      );
+    } else if (url.includes('tiktok.com')) {
+      const videoId = url.match(/(?:https?:\/\/(?:www\.)?tiktok\.com\/(?:@[^\/]+\/video\/))(\d+)/);
+      return (
+        <iframe
+          width="320"
+          height="240"
+          src={`https://www.tiktok.com/embed/${videoId ? videoId[1] : ''}`}
+          title="TikTok video player"
+          frameBorder="0"
+          allowFullScreen
+        ></iframe>
+      );
+    } else {
+      return (
+        <video width="320" height="240" controls>
+          <source src={url} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
+  };
+
   useEffect(() => {
     fetchVideos();
   }, []);
@@ -113,10 +150,7 @@ const VideoAdmin = ({ onLogout }) => {
       {url && (
         <div className="video-preview">
           <h4>Video Preview</h4>
-          <video width="320" height="240" controls>
-            <source src={url} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          {renderVideoPlayer(url)}
         </div>
       )}
 
@@ -135,9 +169,7 @@ const VideoAdmin = ({ onLogout }) => {
             <li key={video.id} className="video-item">
               <h4>{video.title}</h4>
               <div className="video-frame">
-                <video width="320" height="240" controls>
-                  <source src={video.url} type="video/mp4" />
-                </video>
+                {renderVideoPlayer(video.url)}
               </div>
               <p>{video.description}</p>
               <div className="video-actions">
