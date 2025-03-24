@@ -53,6 +53,8 @@ body {
 
 .nav-links a:hover {
     color: white;
+    background-color: #0d5003 ;
+    transition: 0.6s;
     transform: scale(1.05);
 }
 
