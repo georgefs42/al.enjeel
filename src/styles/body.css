@@ -1,84 +1,124 @@
-/* General Body Section Styling */
-.body-section {
-  padding: 20px;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Marhey:wght@300..700&family=Rakkas&display=swap');
+
+/* ---- General Styles ---- */
+.carousel-container {
+  padding-bottom: 5%;
+  padding-top: 5%;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+  font-family: 'Marhey', sans-serif;
 }
 
-h2 {
+/* ---- Carousel Title ---- */
+.carousel-title {
+  text-align: center;
   font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-/* Styling for the Video Gallery */
-.video-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));  /* Automatically adjusts based on screen size */
-  gap: 20px;  /* Spacing between items */
-  margin-top: 20px;
-}
-
-/* Styling for each Video Box */
-.video-box {
-  height: 100%;
-  border: 1px solid #ccc;  /* Light border around each video box */
-  padding: 15px;
-  background-color: #f9f9f9;  /* Light background */
-  border-radius: 10px;  /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Slight shadow effect */
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.video-box:hover {
-  transform: translateY(-5px);  /* Slight lift effect on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);  /* Increased shadow on hover */
-}
-
-/* Video Title Styling */
-.video-box h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333;
-  margin: 10px 0;
-}
-
-/* Video Player Styling */
-video {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;  /* Ensures videos are responsive */
-  border-radius: 8px;  /* Rounded corners on the video */
-  border: none;
-}
-
-/* Video Description Styling */
-.video-box p {
-  font-size: 1rem;
-  color: #555;
-  margin-top: 10px;
-}
-
-/* Loading and Error Styling */
-p {
-  font-size: 1rem;
-  color: #555;
-}
-
-p.error {
-  color: red;
   font-weight: bold;
+  color: #0d5003;
+  padding: 15px 0;
 }
 
-.search-bar {
-  padding: 10px;
-  margin: 10px 0;
+/* ---- Carousel Wrapper ---- */
+.carousel {
+  display: flex;
   width: 100%;
-  max-width: 400px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  display: block;
-  background-color: white; /* To make sure the background color is visible */
-  box-sizing: border-box; /* Ensures padding doesn't cause the input to overflow */
+  transition: transform 0.8s ease-in-out;
 }
 
+/* ---- Individual Slide ---- */
+.slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  text-align: center;
+}
+
+/* ---- Slide Image ---- */
+.slide img {
+  height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide img:hover {
+  transform: scale(1.05);
+}
+
+/* ---- Slide Title ---- */
+.slide-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+/* ---- Slide Description ---- */
+.slide-description {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  text-align: center;
+  background: rgba(13, 80, 3, 0.543);
+  color: white;
+  padding: 10px;
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+/* ---- No Slides Available Message ---- */
+.no-slides {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #999;
+  padding: 20px;
+}
+
+/* ---- Responsive Styles ---- */
+@media (max-width: 768px) {
+  .carousel-title {
+    font-size: 1.5rem;
+  }
+
+  .slide img {
+    height: 400px;
+  }
+
+  .slide-title {
+    font-size: 1.5rem;
+  }
+
+  .slide-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-title {
+    font-size: 1.2rem;
+  }
+
+  .slide img {
+    height: 300px;
+  }
+
+  .slide-title {
+    font-size: 1.2rem;
+  }
+
+  .slide-description {
+    font-size: 0.8rem;
+  }
+}

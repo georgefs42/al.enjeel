@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import supabase from '../supabase';
 import '../styles/Comments.css';
 
@@ -7,14 +7,26 @@ const Comments = ({ isAdmin }) => {
   const [newComment, setNewComment] = useState('');
   const [userName, setUserName] = useState('');
   const [visitorCount, setVisitorCount] = useState(0);
+  const scrollRef = useRef(null);
 
-  // Fetch comments and increment visitor count
   useEffect(() => {
     incrementVisitorCount();
     fetchComments();
   }, []);
 
-  // Increment visitor count
+  useEffect(() => {
+    const scrollInterval = setInterval(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop += 1;
+        if (scrollRef.current.scrollTop + scrollRef.current.clientHeight >= scrollRef.current.scrollHeight) {
+          scrollRef.current.scrollTop = 0;
+        }
+      }
+    }, 50);
+
+    return () => clearInterval(scrollInterval);
+  }, [comments]);
+
   const incrementVisitorCount = async () => {
     try {
       const { data, error } = await supabase
@@ -38,7 +50,6 @@ const Comments = ({ isAdmin }) => {
     }
   };
 
-  // Fetch comments from Supabase
   const fetchComments = async () => {
     try {
       const { data, error } = await supabase
@@ -56,7 +67,6 @@ const Comments = ({ isAdmin }) => {
     }
   };
 
-  // Handle new comment submission
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim() || !userName.trim()) return;
@@ -77,7 +87,6 @@ const Comments = ({ isAdmin }) => {
     }
   };
 
-  // Handle comment deletion (admin only)
   const handleDeleteComment = async (id) => {
     try {
       const { error } = await supabase
@@ -95,7 +104,7 @@ const Comments = ({ isAdmin }) => {
 
   return (
     <div className="comments-container">
-      <h2>Comments</h2>
+      <h2>شارك بصلاة أو تعليق  </h2>
 
       <form onSubmit={handleCommentSubmit} className="comment-form">
         <input
@@ -103,25 +112,43 @@ const Comments = ({ isAdmin }) => {
           className="name-input"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
-          placeholder="Enter your name"
+          placeholder="ادخل اسمك..."
         />
         <textarea
           className="comment-input"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Write a comment..."
+          placeholder="أكتب تعليقك هنا..."
         />
-        <button type="submit" className="submit-btn">Post</button>
+        <button type="submit" className="submit-btn">انشـر التعـليق</button>
       </form>
 
-      <ul className="comments-list">
+      <div className="comments-list" ref={scrollRef} style={{ maxHeight: '300px', overflow: 'hidden' }}>
         {comments.length === 0 ? (
-          <li className="no-comments">No comments yet</li>
+          <p className="no-comments">No comments yet</p>
         ) : (
-          comments.map((comment) => (
-            <li key={comment.id} className="comment-item">
-              <p className="comment-text">{comment.comment_text}</p>
-              <span className="timestamp">
+          comments.map((comment, index) => (
+            <div
+              key={comment.id}
+              className="comment-item"
+              style={{
+                background: index % 2 === 0 ? '#f0f0f0' : '#e0e0e0',
+                borderRadius: '8px',
+                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+                margin: '8px 0',
+                padding: '10px',
+                transition: 'transform 0.2s',
+                fontSize: '16px',
+                color: '#333',
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
+              onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+            >
+              <p className="comment-text" style={{ fontWeight: 'bold' }}>{comment.comment_text}</p>
+              <span
+                className="timestamp"
+                style={{ fontSize: '12px', color: '#555' }}
+              >
                 {new Date(comment.created_at).toLocaleString('sv-SE', {
                   timeZone: 'Europe/Stockholm',
                   hour12: false,
@@ -133,18 +160,16 @@ const Comments = ({ isAdmin }) => {
                   second: '2-digit',
                 })}
               </span>
-
               {isAdmin && !comment.is_deleted && (
                 <button className="delete-btn" onClick={() => handleDeleteComment(comment.id)}>
                   Delete
                 </button>
               )}
-
               {comment.is_deleted && <span className="deleted-label">Deleted</span>}
-            </li>
+            </div>
           ))
         )}
-      </ul>
+      </div>
 
       <div className="visitor-count" style={{ textAlign: 'center', marginTop: '20px' }}>
         <p>عدد زوار الصفحة: {visitorCount}</p>
