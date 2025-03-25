@@ -186,9 +186,7 @@ const VideoAdmin = ({ onLogout }) => {
                   <iframe src={getYouTubeEmbedUrl(video.url)} title="YouTube video" allowFullScreen />
                 ) : video.url.includes("tiktok.com") ? (
                   <blockquote className="tiktok-embed" cite={video.url} data-video-id={video.url.split("/").pop()}>
-                    <a href={video.url} target="_blank" rel="noopener noreferrer">
-                      View on TikTok
-                    </a>
+                    <a href={video.url} target="_blank" rel="noopener noreferrer">View on TikTok</a>
                   </blockquote>
                 ) : (
                   <video src={video.url} controls />

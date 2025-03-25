@@ -35,7 +35,7 @@ body {
 /* Admin Container */
 .admin-container {
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 110px auto;
   padding: 20px;
   background: white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -61,6 +61,12 @@ body {
   margin-bottom: 20px;
   border-bottom: 2px solid var(--primary-color);
   padding-bottom: 5px;
+}
+
+/* Division Line Between Sections */
+.section + .section {
+  border-top: 2px solid var(--border-color);
+  padding-top: 20px;
 }
 
 /* ===========================
@@ -196,6 +202,7 @@ button:hover {
   gap: 20px;
   padding: 0;
   margin: 20px 0;
+  margin-bottom: 15%;
 }
 
 .video-item {
@@ -237,9 +244,9 @@ button:hover {
    Comments Section 
 =========================== */
 .comments-list {
+  margin-top: 20px;
   list-style: none;
-  padding: 0;
-  margin: 0;
+  
 }
 
 .comments-list li {
@@ -251,6 +258,17 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.comments-list button {
+  width: 100px;
+  padding: 5px 10px;
+  border: none;
+  background: var(--danger-color);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 /* ===========================
