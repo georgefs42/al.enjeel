@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import supabase from "../supabase";
-import "../styles/body.css";
+import React, { useState, useEffect } from 'react';
+import supabase from '../supabase';
+import '../styles/body.css';
 
 const Body = () => {
   const [slides, setSlides] = useState([]);
@@ -11,6 +11,7 @@ const Body = () => {
     fetchSlides();
   }, []);
 
+  // Auto-scroll every 3 seconds unless paused
   useEffect(() => {
     if (!paused && slides.length > 0) {
       const interval = setInterval(() => {
@@ -21,33 +22,29 @@ const Body = () => {
   }, [paused, slides]);
 
   const fetchSlides = async () => {
-    const { data, error } = await supabase
-      .from("slides")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) console.error("Error fetching slides:", error);
+    const { data, error } = await supabase.from('slides').select('*').order('created_at', { ascending: false });
+    if (error) console.error('Error fetching slides:', error);
     else setSlides(data);
   };
 
   return (
     <div className="carousel-container">
-      <div className="carousel-title">آخر التحديثات </div>
+      <div className="carousel-title">آخر التحديثات</div>
       {slides.length > 0 ? (
         <div
           className="carousel"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {slides.map((slide) => (
+          {slides.map((slide, index) => (
             <div
               key={slide.id}
-              className="slide"
-              onClick={() => window.open(slide.link_url, "_blank")}
+              className={`slide ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => window.open(slide.link_url, '_blank')}
             >
-              <img src={slide.image_url} alt={slide.title} className="slide-image" />
-              <div className="slide-title">{slide.title}</div>
+              <img src={slide.image_url} alt={slide.title} />
               <div className="slide-description">
+                <h3>{slide.title}</h3>
                 <p>{slide.description}</p>
               </div>
             </div>

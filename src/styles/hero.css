@@ -44,7 +44,7 @@
   padding-top: 50%;
   font-size: 4rem !important;
   margin-bottom: 1rem;
-  font-family: 'Marhey'; /* Apply Marhey font to title */
+  /* Apply Marhey font to title */
   text-transform: uppercase; /* Add uppercase for a stronger visual appeal */
   letter-spacing: 1px; /* Add spacing between letters for clarity */
 }

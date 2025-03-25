@@ -4,7 +4,8 @@ import "../styles/VideoAdmin.css";
 
 const VideoAdmin = ({ onLogout }) => {
   const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(""); // URL for images and videos
+  const [linkUrl, setLinkUrl] = useState(""); // link_url for slides
   const [description, setDescription] = useState("");
   const [slides, setSlides] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -33,7 +34,7 @@ const VideoAdmin = ({ onLogout }) => {
     return () => document.body.removeChild(script);
   }, []);
 
-  // Fetch slides
+  // Fetch slides (including link_url)
   const fetchSlides = async () => {
     const { data, error } = await supabase
       .from("slides")
@@ -74,12 +75,12 @@ const VideoAdmin = ({ onLogout }) => {
     fetchAbout();
   };
 
-  // Save Slide
+  // Save Slide (including link_url)
   const handleSaveSlide = async (e) => {
     e.preventDefault();
-    if (!title || !url || !description) return;
+    if (!title || !url || !description || !linkUrl) return; // Ensure link_url is also filled
 
-    const slideData = { title, description, image_url: url };
+    const slideData = { title, description, image_url: url, link_url: linkUrl }; // Add link_url
     if (editId) {
       await supabase.from("slides").update(slideData).eq("id", editId);
     } else {
@@ -127,7 +128,8 @@ const VideoAdmin = ({ onLogout }) => {
   // Edit Item
   const handleEdit = (item) => {
     setTitle(item.title);
-    setUrl(item.url || item.image_url);
+    setUrl(item.url || item.image_url); // Use image_url for the image URL
+    setLinkUrl(item.link_url); // Add link_url to be editable
     setDescription(item.description);
     setEditId(item.id);
   };
@@ -136,6 +138,7 @@ const VideoAdmin = ({ onLogout }) => {
   const resetForm = () => {
     setTitle("");
     setUrl("");
+    setLinkUrl(""); // Reset link_url
     setDescription("");
     setEditId(null);
   };
@@ -192,6 +195,7 @@ const VideoAdmin = ({ onLogout }) => {
           <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
           <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
           <input type="text" placeholder="Image URL" value={url} onChange={(e) => setUrl(e.target.value)} />
+          <input type="text" placeholder="Link URL" value={linkUrl} onChange={(e) => setLinkUrl(e.target.value)} /> {/* New input for link_url */}
           <button type="submit">{editId ? "Update Slide" : "Add Slide"}</button>
         </form>
         <div className="slides-list">
@@ -200,6 +204,12 @@ const VideoAdmin = ({ onLogout }) => {
               <img src={slide.image_url} alt={slide.title} />
               <h3>{slide.title}</h3>
               <p>{slide.description}</p>
+              {/* Display the link_url as a clickable link */}
+              {slide.link_url && (
+                <a href={slide.link_url} target="_blank" rel="noopener noreferrer">
+                  Go to Link
+                </a>
+              )}
               <button onClick={() => handleEdit(slide)}>Edit</button>
               <button onClick={() => handleDeleteSlide(slide.id)}>Delete</button>
             </div>

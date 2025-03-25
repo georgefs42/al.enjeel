@@ -67,7 +67,7 @@ body {
 }
 
 /* Responsive Menu for Small Screens */
-@media (max-width: 930px) {
+@media (max-width: 1030px) {
     .menu-icon {
         display: block;
         z-index: 3;
