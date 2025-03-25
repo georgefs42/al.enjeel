@@ -9,18 +9,21 @@ const VideoAdmin = ({ onLogout }) => {
   const [slides, setSlides] = useState([]);
   const [videos, setVideos] = useState([]);
   const [comments, setComments] = useState([]);
+  const [about, setAbout] = useState({ id: null, title: "", body: "" });
   const [editId, setEditId] = useState(null);
 
   // Refs for scrolling
   const slidesRef = useRef(null);
   const videosRef = useRef(null);
   const commentsRef = useRef(null);
+  const aboutRef = useRef(null);
 
   useEffect(() => {
     fetchSlides();
     fetchVideos();
     fetchComments();
-    
+    fetchAbout();
+
     // Load TikTok Embed Script
     const script = document.createElement("script");
     script.src = "https://www.tiktok.com/embed.js";
@@ -52,6 +55,23 @@ const VideoAdmin = ({ onLogout }) => {
       .select("*")
       .order("created_at", { ascending: false });
     if (!error) setComments(data);
+  };
+
+  // Fetch About Section
+  const fetchAbout = async () => {
+    const { data, error } = await supabase.from("about").select("*").limit(1);
+    if (!error && data.length > 0) setAbout(data[0]);
+  };
+
+  // Save About Section
+  const handleSaveAbout = async (e) => {
+    e.preventDefault();
+    if (about.id) {
+      await supabase.from("about").update({ title: about.title, body: about.body }).eq("id", about.id);
+    } else {
+      await supabase.from("about").insert([{ title: about.title, body: about.body }]);
+    }
+    fetchAbout();
   };
 
   // Save Slide
@@ -143,7 +163,27 @@ const VideoAdmin = ({ onLogout }) => {
         <button onClick={() => scrollToSection(slidesRef)}>Add Slides</button>
         <button onClick={() => scrollToSection(videosRef)}>Add Video Gallery</button>
         <button onClick={() => scrollToSection(commentsRef)}>Remove Comments</button>
+        <button onClick={() => scrollToSection(aboutRef)}>Edit About</button>
       </div>
+
+      {/* About Section */}
+      <section ref={aboutRef}>
+        <h3>Edit About Section</h3>
+        <form onSubmit={handleSaveAbout}>
+          <input
+            type="text"
+            placeholder="Title"
+            value={about.title}
+            onChange={(e) => setAbout({ ...about, title: e.target.value })}
+          />
+          <textarea
+            placeholder="Body Text"
+            value={about.body}
+            onChange={(e) => setAbout({ ...about, body: e.target.value })}
+          />
+          <button type="submit">{about.id ? "Update About" : "Add About"}</button>
+        </form>
+      </section>
 
       {/* Slides Section */}
       <section ref={slidesRef}>
@@ -186,7 +226,9 @@ const VideoAdmin = ({ onLogout }) => {
                   <iframe src={getYouTubeEmbedUrl(video.url)} title="YouTube video" allowFullScreen />
                 ) : video.url.includes("tiktok.com") ? (
                   <blockquote className="tiktok-embed" cite={video.url} data-video-id={video.url.split("/").pop()}>
-                    <a href={video.url} target="_blank" rel="noopener noreferrer">View on TikTok</a>
+                    <a href={video.url} target="_blank" rel="noopener noreferrer">
+                      View on TikTok
+                    </a>
                   </blockquote>
                 ) : (
                   <video src={video.url} controls />

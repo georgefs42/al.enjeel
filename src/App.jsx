@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
@@ -11,6 +12,7 @@ import Partner from './components/Partner';
 import Videos from './pages/Videos';
 import Login from './components/Login';
 import Comments from './components/Comments';
+import About from './pages/About';  // Import the About page
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -52,6 +54,7 @@ function App() {
           <Route path="/videos" element={<><Videos /><Footer /></>} />
           <Route path="/podcast" element={<><Podcast /><Footer /></>} />
           <Route path="/partner" element={<><Partner /><Footer /></>} />
+          <Route path="/about" element={<><About /><Footer /></>} />
           <Route path="/admin" element={isAdmin ? <VideoAdmin onLogout={handleLogout} /> : <Hero />} />
         </Routes>
         {showLogin && <Login onLogin={handleLogin} onClose={() => setShowLogin(false)} />}

@@ -31,6 +31,7 @@ const Navbar = ({ isAdmin, handleAdminClick }) => {
         <li><Link to="/">الرئيسية</Link></li> {/* Home */}
         <li><Link to="/videos">فيديوهات</Link></li> {/* Videos */}
         <li><Link to="/podcast">بودكاست</Link></li> {/* Podcast */}
+        <li><Link to="/about">من نحن</Link></li> {/* Podcast */}
         <li><Link to="/partner">كن شريكًا</Link></li> {/* Become a Partner */}
         <li><Link to="/admin" onClick={handleAdminClick}>
             {isAdmin ? "Logout" : "الدخول"}

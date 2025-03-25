@@ -1,0 +1,85 @@
+/* Importing the desired fonts */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Lalezar&family=Noto+Sans+Arabic:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* General Styles */
+body {
+  font-family: 'Noto Sans Arabic', sans-serif; /* Default font for body text */
+  direction: rtl; /* Right-to-left text direction */
+  text-align: right; /* Align text to the right for Arabic */
+  background-color: #f4f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f4f7fa;
+}
+
+.card {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: right; /* Right-to-left alignment for the text */
+}
+
+h1 {
+  font-family: 'Lalezar', sans-serif; /* Use Lalezar font for the title */
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center; /* Title in the center */
+}
+
+p {
+  font-family: 'Noto Sans Arabic', sans-serif; /* Apply Noto Sans Arabic for paragraph */
+  font-size: 18px;
+  line-height: 1.8;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.message {
+  color: #e74c3c;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .card {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+}
