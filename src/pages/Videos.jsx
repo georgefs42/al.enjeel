@@ -111,7 +111,8 @@ const Videos = () => {
                 <div className="video-player">
                   {renderVideo(video.url)}
                 </div>
-                <p>{video.description}</p>
+                {/* <p>{video.description}</p> */}
+                
               </div>
             ))
           )}
