@@ -1,0 +1,77 @@
+/* Main container and layout */
+.admin-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.admin-nav button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background-color: #ff5733;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Section Styling */
+section {
+  margin-bottom: 40px;
+}
+
+h2, h3, h4 {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin-nav button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .logout-btn {
+    width: 100%;
+  }
+
+  section {
+    padding: 10px;
+  }
+}

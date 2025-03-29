@@ -6,137 +6,153 @@
   position: relative;
   width: 100%;
   max-width: 1200px;
-  margin: auto;
-  overflow: hidden;
-  padding-top: 60px; /* Prevents title overlap */
-  box-sizing: border-box;
-  margin-bottom: 50px;
+  margin: 0 auto;
+  padding: 120px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* ---- Carousel Title (Fixed at the Top) ---- */
+/* ---- Carousel Title ---- */
 .carousel-title {
-  position: relative;
-  top: 10px;
+  position: absolute;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   color: #0d5003;
-  font-size: 2rem;
-  font-weight: bold;
-  padding: 12px 20px;
-  border-radius: 5px;
-  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   z-index: 10;
+  text-align: center;
 }
 
 /* ---- Carousel Wrapper ---- */
 .carousel {
-  display: flex;
-  transition: transform 0.8s ease-in-out; /* Smooth Slide Transition */
+  width: 100%;
+  max-width: 900px;
   position: relative;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column; /* Ensures elements stack vertically */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 /* ---- Individual Slide ---- */
 .slide {
-  min-width: 100%;
-  height: 500px;
-  position: absolute;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   opacity: 0;
+  visibility: hidden;
   transition: opacity 1s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
+/* ---- Active Slide ---- */
 .slide.active {
   opacity: 1;
+  visibility: visible;
   position: relative;
 }
 
-/* ---- Slide Image (Ensures Full Display Without Cropping) ---- */
+/* ---- Slide Image ---- */
 .slide img {
+  width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image fills the slide */
-  border-radius: 10px;
+  max-height: 400px; /* Adjust as needed */
+  object-fit: contain;
+  border-radius: 20px;
   display: block;
-  margin: auto; /* Centers the image */
 }
 
-
-/* ---- Slide Title (Centered Over Image) ---- */
-.slide-title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Ensures it's centered */
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-align: center;
-  width: 80%;
-  background: rgba(0, 0, 0, 0.6); /* Background for readability */
-}
-
-/* ---- Slide Description (At the Bottom of the Slide) ---- */
+/* ---- Slide Description (Now Below Image) ---- */
 .slide-description {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%); /* Centers the description */
+  width: 90%;
+  max-width: 800px;
+  margin-top: 15px; /* Adds space below image */
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 1.2rem;
   color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 15px;
-  width: 60%;
-  text-align: center;
-  background: rgba(13, 80, 3, 0.7); /* Slight background for contrast */
+  background: rgba(13, 80, 3, 0.8);
+  border-radius: 10px;
 }
 
-/* ---- No Slides Available Message ---- */
-.no-slides {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #999;
-  padding: 20px;
+/* ---- Navigation Controls (Below Description) ---- */
+.carousel-navigation {
+  width: 100%;
+  margin-top: 20px; /* Space below description */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
-/* ---- Responsive Styles ---- */
+.carousel-navigation button {
+  background-color: #0d5003a0;;
+  width: 150px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 1.6rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.carousel-navigation button:hover {
+  background-color: #0d5003;;
+  transform: scale(1.1);
+}
+
+/* ---- Indicators (Still Below Everything) ---- */
+.carousel-indicators {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-indicators button {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+
+.carousel-indicators button.active {
+  background-color: #0d5003;
+}
+
+/* ---- Responsive Fixes ---- */
 @media (max-width: 768px) {
-  .carousel-title {
-    font-size: 1.5rem;
-    padding: 8px 15px;
-  }
-
-  .slide-title {
-    font-size: 1.5rem;
-    width: 90%;
-  }
-
   .slide-description {
-    font-size: 0.9rem;
-    padding: 8px 15px;
+    font-size: 1rem;
+    padding: 10px;
   }
-
-  .slide {
-    height: 400px;
+  .carousel-navigation button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .carousel-title {
-    font-size: 1.2rem;
-    padding: 6px 12px;
-  }
-
-  .slide-title {
-    font-size: 1.2rem;
-    width: 90%;
-  }
-
   .slide-description {
-    font-size: 0.8rem;
-    padding: 6px 12px;
+    font-size: 0.9rem;
+    padding: 8px;
   }
-
-  .slide {
-    height: 300px;
+  .carousel-navigation button {
+    padding: 8px 16px;
+    font-size: 1rem;
   }
 }

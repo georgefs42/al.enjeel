@@ -25,8 +25,18 @@ const Login = ({ onLogin, onClose }) => {
         <p className="close-btn" onClick={onClose}>✖</p>
         <h2>Admin Login</h2>
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button type="submit">Login</button>
         </form>
         {error && <p className="error">{error}</p>}

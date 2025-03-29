@@ -11,7 +11,6 @@ const Body = () => {
     fetchSlides();
   }, []);
 
-  // Auto-scroll every 3 seconds unless paused
   useEffect(() => {
     if (!paused && slides.length > 0) {
       const interval = setInterval(() => {
@@ -27,6 +26,14 @@ const Body = () => {
     else setSlides(data);
   };
 
+  const plusDivs = (n) => {
+    setCurrentIndex((prevIndex) => (prevIndex + n + slides.length) % slides.length);
+  };
+
+  const currentDiv = (n) => {
+    setCurrentIndex(n);
+  };
+
   return (
     <div className="carousel-container">
       <div className="carousel-title">آخر التحديثات</div>
@@ -36,19 +43,38 @@ const Body = () => {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {slides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`slide ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => window.open(slide.link_url, '_blank')}
-            >
-              <img src={slide.image_url} alt={slide.title} />
-              <div className="slide-description">
-                <h3>{slide.title}</h3>
-                <p>{slide.description}</p>
+          <div className="carousel-slides">
+            {slides.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={`slide ${index === currentIndex ? 'active' : 'hidden'}`}
+                onClick={() => window.open(slide.link_url, '_blank')}
+              >
+                <img src={slide.image_url} alt={slide.title} />
+                <div className="slide-description">
+                  <h3>{slide.title}</h3>
+                  <p>{slide.description}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="carousel-navigation">
+            <button onClick={() => plusDivs(-1)} className="w3-button w3-light-grey">❮ Prev</button>
+            <button onClick={() => plusDivs(1)} className="w3-button w3-light-grey">Next ❯</button>
+          </div>
+
+          <div className="carousel-indicators">
+            {slides.map((slide, index) => (
+              <button
+                key={slide.id}
+                className={`w3-button demo ${index === currentIndex ? 'w3-red' : ''}`}
+                onClick={() => currentDiv(index)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
       ) : (
         <p className="no-slides">No slides available</p>
