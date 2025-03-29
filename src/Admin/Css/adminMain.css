@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Marhey:wght@300..700&family=Rakkas&display=swap');
+
+
 /* Main container and layout */
 .admin-container {
+  margin-top: 10%;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  
+}
+.admin-container h2{
+  margin-top: 10%;
+  font-family: 'Marhey';
 }
 
 .admin-nav {
@@ -14,18 +23,25 @@
 
 .admin-nav button {
   padding: 10px;
-  background-color: #007bff;
+  background-color: #0d5003;
   color: white;
   border: none;
   cursor: pointer;
 }
 
 .logout-btn {
-  background-color: #ff5733;
+  background-color: #f02d01da;
   color: white;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border-bottom: black solid 2px;
+}
+.logout-btn:hover {
+  background-color: red
 }
 
 /* Section Styling */
@@ -40,10 +56,11 @@ h2, h3, h4 {
 button {
   padding: 10px 20px;
   margin-top: 10px;
-  background-color: #007bff;
+  background-color: #0d5003;
   color: white;
   border: none;
   cursor: pointer;
+  max-width: 250px;
 }
 
 input,

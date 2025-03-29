@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../supabase";
-import './Css/AboutSection.css';
+import "./Css/AboutSection.css"; // Import the CSS file
 
 const AboutSection = () => {
   const [about, setAbout] = useState({ id: null, title: "", body: "" });
@@ -17,7 +17,10 @@ const AboutSection = () => {
   const handleSaveAbout = async (e) => {
     e.preventDefault();
     if (about.id) {
-      await supabase.from("about").update({ title: about.title, body: about.body }).eq("id", about.id);
+      await supabase
+        .from("about")
+        .update({ title: about.title, body: about.body })
+        .eq("id", about.id);
     } else {
       await supabase.from("about").insert([{ title: about.title, body: about.body }]);
     }
@@ -25,9 +28,9 @@ const AboutSection = () => {
   };
 
   return (
-    <section>
+    <section id="about-section">
       <h3>Edit About Section</h3>
-      <form onSubmit={handleSaveAbout}>
+      <form onSubmit={handleSaveAbout} className="about-form">
         <input
           type="text"
           placeholder="Title"
